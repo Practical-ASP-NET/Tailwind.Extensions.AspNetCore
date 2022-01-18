@@ -21,13 +21,13 @@ internal static class TailwindMiddleware
         RegexMatchTimeout =
             TimeSpan.FromSeconds(5); // This is a development-time only feature, so a very long timeout is fine
 
-    public static async Task Attach(IApplicationBuilder appBuilder, string scriptName)
+    public static async Task Attach(IApplicationBuilder appBuilder, string scriptName, string workingDir)
     {
         var applicationStoppingToken = appBuilder.ApplicationServices.GetRequiredService<IHostApplicationLifetime>()
             .ApplicationStopping;
         var logger = LoggerFinder.GetOrCreateLogger(appBuilder, LogCategoryName);
         var diagnosticSource = appBuilder.ApplicationServices.GetRequiredService<DiagnosticSource>();
-        await ExecuteScript("./", scriptName, logger, diagnosticSource, applicationStoppingToken);
+        await ExecuteScript(workingDir, scriptName, logger, diagnosticSource, applicationStoppingToken);
     }
 
     private static async Task ExecuteScript(
