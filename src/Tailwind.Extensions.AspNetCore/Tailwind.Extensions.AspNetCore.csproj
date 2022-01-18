@@ -10,6 +10,7 @@
         <PackageId>Tailwind.Extensions.AspNetCore</PackageId>
         <PackageTags>tailwind;devtools;</PackageTags>
         <LangVersion>latest</LangVersion>
+        <MinVerTagPrefix>v</MinVerTagPrefix>
     </PropertyGroup>
 
     <ItemGroup>
