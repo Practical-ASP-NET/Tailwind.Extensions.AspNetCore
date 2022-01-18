@@ -77,6 +77,13 @@ if (app.Environment.IsDevelopment())
     app.RunTailwind("tailwind", "../Client/");
 }
 ```
+
+You'll also need to add this `using` statement:
+
+``` csharp
+using Tailwind;
+```
+
 Now, run `dotnet watch run` and try modifying your Razor components (using Tailwind's utility classes).
 
 You should see logs indicating that tailwind has rebuilt the CSS stylesheet successfully.
