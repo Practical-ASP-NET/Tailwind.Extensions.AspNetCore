@@ -6,3 +6,4 @@ riderModule.iml
 /.idea/
 /artifacts
 **/node_modules/
+/src/SampleApps/BlazorServer/wwwroot/css/output.css
