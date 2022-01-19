@@ -2,7 +2,7 @@
 
 Makes it possible to use the new "Just In Time" builds for Tailwind (Tailwind 3+) with ASP.NET Core.
 
-Works for Blazor WASM applications that are hosted via an ASP.NET Core app, and Blazor Server applications.
+Works for Blazor WASM applications that are hosted via ASP.NET Core, and Blazor Server applications.
 
 Note it doesn't work with Blazor WASM apps that aren't hosted via ASP.NET Core.
 
