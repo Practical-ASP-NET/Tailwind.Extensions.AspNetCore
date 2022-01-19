@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,4 +17,16 @@
       <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
     </ItemGroup>
 
+    <Target Name="CheckForNpm" BeforeTargets="NpmInstall">
+        <Exec Command="npm -v" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+        </Exec>
+        <Error Condition="'$(ErrorCode)' != '0'" Text="You must install NPM to build this project" />
+    </Target>
+    
+    <Target Name="NpmInstall" BeforeTargets="Compile" Inputs="package.json" Outputs="$(NpmLastInstall)">
+        <Exec Command="npm install" />
+        <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
+    </Target>
+    
 </Project>
