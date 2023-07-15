@@ -1,3 +1,5 @@
+_Disclaimer: This project is not affiliated with or supported by Tailwind Labs._
+
 # Use Tailwind's JIT mode with `dotnet run` and `dotnet watch run`
 
 Makes it possible to use the new "Just In Time" builds for Tailwind (Tailwind 3+) with ASP.NET Core.
