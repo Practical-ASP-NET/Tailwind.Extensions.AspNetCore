@@ -6,6 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
+// use this to automatically watch for css changes using Tailwind CLI
+// configure via appsettings "Tailwind"
+builder.UseTailwindCli();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,7 +31,8 @@ app.MapFallbackToPage("/_Host");
 
 if (app.Environment.IsDevelopment())
 {
-    app.RunTailwind("tailwind", "./");
+    // app.RunTailwind("tailwind", "./");
 }
 
 app.Run();
+
