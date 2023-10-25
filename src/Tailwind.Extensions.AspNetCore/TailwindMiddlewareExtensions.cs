@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Tailwind;
 
 /// <summary>
-/// Extension methods for enabling React development server middleware support.
+/// Extension methods for enabling tailwind middleware support.
 /// </summary>
 public static class TailwindMiddlewareExtensions
 {
@@ -24,5 +25,15 @@ public static class TailwindMiddlewareExtensions
         }
 
         return TailwindMiddleware.Attach(applicationBuilder, npmScript, workingDir);
+    }
+    
+    /// <summary>
+    /// Run the Tailwind Cli in watch mode in the background (Development environments only
+    /// </summary>
+    /// <param name="webApplicationBuilder"></param>
+    public static void UseTailwindCli(this WebApplicationBuilder webApplicationBuilder)
+    {
+        webApplicationBuilder.Services.Configure<TailwindOptions>(webApplicationBuilder.Configuration.GetSection("Tailwind"));
+        webApplicationBuilder.Services.AddHostedService<TailwindHostedService>();
     }
 }

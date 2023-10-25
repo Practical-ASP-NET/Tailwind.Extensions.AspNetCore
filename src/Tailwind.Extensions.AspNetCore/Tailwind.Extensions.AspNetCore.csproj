@@ -5,9 +5,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Description>Tailwind extensions for ASP.NET Core</Description>
-        <AssemblyName>Tailwind.Extensions.AspNetCore</AssemblyName>
         <RootNamespace>Tailwind</RootNamespace>
         <PackageId>Tailwind.Extensions.AspNetCore</PackageId>
+        <AssemblyName>Tailwind.Extensions.AspNetCore</AssemblyName>
         <PackageTags>tailwind;devtools;</PackageTags>
         <LangVersion>latest</LangVersion>
         <MinVerTagPrefix>v</MinVerTagPrefix>
@@ -18,7 +18,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
-        <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="All" />
+        <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="All" /> 
     </ItemGroup>
 
 </Project>
