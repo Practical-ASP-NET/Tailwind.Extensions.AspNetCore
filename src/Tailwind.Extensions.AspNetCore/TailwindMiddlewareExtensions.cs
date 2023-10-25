@@ -34,6 +34,7 @@ public static class TailwindMiddlewareExtensions
     public static void UseTailwindCli(this WebApplicationBuilder webApplicationBuilder)
     {
         webApplicationBuilder.Services.Configure<TailwindOptions>(webApplicationBuilder.Configuration.GetSection("Tailwind"));
+        webApplicationBuilder.Services.AddSingleton<ITailwindProcessInterop, TailwindProcessInterop>();
         webApplicationBuilder.Services.AddHostedService<TailwindHostedService>();
     }
 }

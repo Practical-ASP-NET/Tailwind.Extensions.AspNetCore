@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Tailwind;
@@ -23,9 +23,14 @@ public class TailwindHostedService : IHostedService, IDisposable
     private Process? _process;
     private readonly IHostEnvironment _hostEnvironment;
     private readonly TailwindOptions _options;
+    private readonly ITailwindProcessInterop _tailwindProcess;
+    private readonly ILogger<TailwindHostedService> _logger;
 
-    public TailwindHostedService(IOptions<TailwindOptions> options, IHostEnvironment hostEnvironment)
+    public TailwindHostedService(IOptions<TailwindOptions> options, IHostEnvironment hostEnvironment,
+        ITailwindProcessInterop tailwindProcess, ILogger<TailwindHostedService> logger)
     {
+        _logger = logger;
+        _tailwindProcess = tailwindProcess;
         _options = options.Value;
         _hostEnvironment = hostEnvironment;
     }
@@ -37,75 +42,19 @@ public class TailwindHostedService : IHostedService, IDisposable
         if (!_hostEnvironment.IsDevelopment())
             return Task.CompletedTask;
 
-        
+
         var input = _options.InputFile;
         var output = _options.OutputFile;
 
-        if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
-        {
-            Console.WriteLine("tailwind: Unable to start Tailwind CLI, missing CSS input and output file config. Check your app configuration.");
-        }
-        
-        Console.WriteLine($"tailwind -i {input} -o {output} --watch");
+        Guard.AgainstNull(input, "check Tailwind configuration");
+        Guard.AgainstNull(output, "check Tailwind configuration");
+
+        _logger.LogInformation($"tailwind -i {input} -o {output} --watch");
 
         var processName = string.IsNullOrEmpty(_options.TailwindCliPath) ? "tailwind" : _options.TailwindCliPath;
-        _process = StartProcess(processName, $"-i {input} -o {output} --watch");
+        _process = _tailwindProcess.StartProcess(processName, $"-i {input} -o {output} --watch");
 
         return Task.CompletedTask;
-    }
-
-    private static Process? StartProcess(string command, string arguments)
-    {
-        var cmdName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-            ? $"{command}.exe"
-            : command;
-
-        try
-        {
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = cmdName,
-                Arguments = arguments,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            var process = Process.Start(startInfo);
-
-            if (process == null)
-            {
-                Console.WriteLine($"Could not start process: {cmdName}");
-                return null;
-            }
-
-            process.OutputDataReceived += (sender, data) =>
-            {
-                if (!string.IsNullOrEmpty(data.Data))
-                {
-                    Console.WriteLine("tailwind: " + data.Data);
-                }
-            };
-
-            process.ErrorDataReceived += (sender, data) =>
-            {
-                if (!string.IsNullOrEmpty(data.Data))
-                {
-                    Console.WriteLine("tailwind: " +data.Data);
-                }
-            };
-
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            return process;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error starting process: {ex.Message}");
-            throw;
-        }
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

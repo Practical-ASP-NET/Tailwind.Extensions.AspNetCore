@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailwind.Extensions.AspNetC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServer", "src\SampleApps\BlazorServer\BlazorServer.csproj", "{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailwind.Extensions.AspNetCore.Tests", "src\Tailwind.Extensions.AspNetCore.Tests\Tailwind.Extensions.AspNetCore.Tests.csproj", "{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
