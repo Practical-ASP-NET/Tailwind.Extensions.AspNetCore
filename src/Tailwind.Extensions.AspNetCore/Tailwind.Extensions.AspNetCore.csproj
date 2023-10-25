@@ -7,6 +7,7 @@
         <Description>Tailwind extensions for ASP.NET Core</Description>
         <RootNamespace>Tailwind</RootNamespace>
         <PackageId>Tailwind.Extensions.AspNetCore</PackageId>
+        <AssemblyName>Tailwind.Extensions.AspNetCore</AssemblyName>
         <PackageTags>tailwind;devtools;</PackageTags>
         <LangVersion>latest</LangVersion>
         <MinVerTagPrefix>v</MinVerTagPrefix>
