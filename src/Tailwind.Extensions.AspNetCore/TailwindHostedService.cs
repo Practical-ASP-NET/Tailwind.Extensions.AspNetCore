@@ -46,8 +46,8 @@ public class TailwindHostedService : IHostedService, IDisposable
         var input = _options.InputFile;
         var output = _options.OutputFile;
 
-        Guard.AgainstNull(input, "check Tailwind configuration");
-        Guard.AgainstNull(output, "check Tailwind configuration");
+        Guard.AgainstNull(input, "Check Tailwind configuration");
+        Guard.AgainstNull(output, "Check Tailwind configuration");
 
         _logger.LogInformation($"tailwind -i {input} -o {output} --watch");
 
