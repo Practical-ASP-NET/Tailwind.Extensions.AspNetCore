@@ -95,14 +95,3 @@ Note we're using the discard parameter `_` when we call `app.RunTailwind`. This 
 Now, run `dotnet watch run` and try modifying your Razor components (using Tailwind's utility classes).
 
 You should see logs indicating that tailwind has rebuilt the CSS stylesheet successfully.
-
-## Known Issues
-
-If you use `dotnet watch run` to launch your application you'll likely find everything works as you'd expect: you can make changes to your razor files and see those changes reflected in the browser.
-
-With Visual Studio the experience is somewhat more hit and miss. It looks like there is an issue whereby VS hot reload doesn't detect and apply changes to .css files when you have a Blazor WASM project hosted via ASP.NET Core.
-
-There's an open Visual Studio feedback item about that here:
-[Hot Reload For CSS Not Working With Blazor WebAssembly Hosted](https://developercommunity.visualstudio.com/t/Hot-Reload-For-CSS-Not-Working-With-Blaz/1590384?space=8&q=hot+reload+css)
-
-Might be worth up-voting that if you're having difficulties.
