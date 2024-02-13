@@ -71,7 +71,7 @@ Now head over to `Program.cs` and add this code before `app.Run()`;
 ``` csharp
 if (app.Environment.IsDevelopment())
 {
-    app.RunTailwind("tailwind", "./");
+    _ = app.RunTailwind("tailwind", "./");
 }
 ```
 
@@ -80,7 +80,7 @@ The second argument is the path to the folder containing your package.json file.
 ``` csharp
 if (app.Environment.IsDevelopment())
 {
-    app.RunTailwind("tailwind", "../Client/");
+    _ = app.RunTailwind("tailwind", "../Client/");
 }
 ```
 
@@ -89,6 +89,8 @@ You'll also need to add this `using` statement:
 ``` csharp
 using Tailwind;
 ```
+
+Note we're using the discard parameter `_` when we call `app.RunTailwind`. This is because the method is async, but we don't want to wait for it to complete (as this would cause your app to wait for it to finish, and we want it continue running in the background alongside your app). Using the `_` parameter here stops your IDE nagging at you to await the call 😀 
 
 Now, run `dotnet watch run` and try modifying your Razor components (using Tailwind's utility classes).
 
