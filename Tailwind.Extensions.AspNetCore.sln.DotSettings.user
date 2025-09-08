@@ -1,5 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=47796ad6_002D76b8_002D433b_002Da5ef_002D65e0598f0b93/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MissingOptionsThrowsError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=47796ad6_002D76b8_002D433b_002Da5ef_002D65e0598f0b93/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="MissingOptionsThrowsError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\hilto\RiderProjects\Tailwind.Extensions.AspNetCore\Tailwind.Extensions.AspNetCore.Tests" Presentation="&amp;lt;Tailwind.Extensions.AspNetCore.Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7ce84f90_002D6ae2_002D4e9e_002D860e_002Deb90f45871f3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Junie Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Namespace&gt;Tailwind.Extensions.AspNetCore.Tests&lt;/Namespace&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
