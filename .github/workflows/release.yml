@@ -24,7 +24,7 @@
           run: ./Push.ps1
           shell: pwsh
         - name: Artifacts
-          uses: actions/upload-artifact@v2
+          uses: actions/upload-artifact@4.6.2
           with:
             name: artifacts
             path: artifacts/**/*
