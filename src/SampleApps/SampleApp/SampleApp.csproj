@@ -9,11 +9,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Tailwind.Extensions.AspNetCore\Tailwind.Extensions.AspNetCore.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css.map" />
-    </ItemGroup>
+    </ItemGroup>  
 
 </Project>
