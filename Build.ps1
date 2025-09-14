@@ -30,6 +30,6 @@ exec { & dotnet clean -c Release }
 
 exec { & dotnet build -c Release }
 
-exec { & dotnet test -c Release -r $artifacts --no-build -l trx --verbosity=normal }
+exec { & dotnet test .\src\Tailwind.Extensions.AspNetCore.Tests\Tailwind.Extensions.AspNetCore.Tests.csproj -c Release --no-build -l trx --verbosity=normal }
 
 exec { dotnet pack .\src\Tailwind.Extensions.AspNetCore -c Release -o $artifacts --no-build }
