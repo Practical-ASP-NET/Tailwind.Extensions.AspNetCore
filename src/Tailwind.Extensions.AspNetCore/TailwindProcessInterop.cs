@@ -113,10 +113,9 @@ public class TailwindProcessInterop : ITailwindProcessInterop
             WorkingDirectory = null
         };
        
-        var commandsToTry = new List<string>();
-       
+        var commandsToTry = new List<string> { cmdName };
+
         commandsToTry.AddRange(FindExecutablesInPath("*tailwind*"));
-        commandsToTry.Add(cmdName);
         commandsToTry.AddRange(FindExecutablesInCurrentDirectory(cmdName));
       
         if (cmdName.EndsWith(".exe"))
