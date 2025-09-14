@@ -2,9 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailwind.Extensions.AspNetCore", "src\Tailwind.Extensions.AspNetCore\Tailwind.Extensions.AspNetCore.csproj", "{3A29D45C-D8D5-4D52-8E4E-F295F3EF14C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServer", "src\SampleApps\BlazorServer\BlazorServer.csproj", "{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailwind.Extensions.AspNetCore.Tests", "src\Tailwind.Extensions.AspNetCore.Tests\Tailwind.Extensions.AspNetCore.Tests.csproj", "{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "src\SampleApps\SampleApp\SampleApp.csproj", "{B49017F0-4088-480D-A599-7D29DDE1AB89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +16,13 @@ Global
 		{3A29D45C-D8D5-4D52-8E4E-F295F3EF14C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A29D45C-D8D5-4D52-8E4E-F295F3EF14C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A29D45C-D8D5-4D52-8E4E-F295F3EF14C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA1AF6B6-6B5B-45B4-867C-9B04CAFDFB84}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF0BEEBB-F708-4F4B-9839-A82AE71835C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B49017F0-4088-480D-A599-7D29DDE1AB89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B49017F0-4088-480D-A599-7D29DDE1AB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B49017F0-4088-480D-A599-7D29DDE1AB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B49017F0-4088-480D-A599-7D29DDE1AB89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
