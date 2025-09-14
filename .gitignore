@@ -8,3 +8,4 @@ riderModule.iml
 **/node_modules/
 /src/SampleApps/BlazorServer/wwwroot/css/output.css
 .vs
+.idea
