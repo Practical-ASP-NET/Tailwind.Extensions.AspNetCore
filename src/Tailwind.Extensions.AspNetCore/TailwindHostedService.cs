@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -11,6 +10,7 @@ public class TailwindOptions
     public string? InputFile { get; set; }
     public string? OutputFile { get; set; }
     public string? TailwindCliPath { get; set; }
+    public string AdditionalArguments { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -42,17 +42,22 @@ public class TailwindHostedService : IHostedService, IDisposable
         if (!_hostEnvironment.IsDevelopment())
             return Task.CompletedTask;
 
-
         var input = _options.InputFile;
         var output = _options.OutputFile;
 
         Guard.AgainstNull(input, "check Tailwind configuration");
         Guard.AgainstNull(output, "check Tailwind configuration");
 
-        _logger.LogInformation($"tailwind -i {input} -o {output} --watch");
+        var args = $"-i {input} -o {output} --watch";
+        if (!string.IsNullOrEmpty(_options.AdditionalArguments))
+        {
+            args += $" {_options.AdditionalArguments}";
+        }
+
+        _logger.LogInformation($"tailwind {args}");
 
         var processName = string.IsNullOrEmpty(_options.TailwindCliPath) ? "tailwind" : _options.TailwindCliPath;
-        _process = _tailwindProcess.StartProcess(processName, $"-i {input} -o {output} --watch");
+        _process = _tailwindProcess.StartProcess(processName, args);
 
         return Task.CompletedTask;
     }
