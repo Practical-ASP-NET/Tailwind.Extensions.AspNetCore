@@ -53,4 +53,29 @@ public class TailwindCliHostedServiceTests
 
         A.CallTo(() => tailwindProcess.StartProcess(expectedCliPath,A<string>.Ignored)).MustHaveHappened();
     }
+
+    [Fact]
+    public async Task AdditionalArgumentsAreIncludedInProcessStart()
+    {
+        var tailwindOptions = new TailwindOptions
+        {
+            InputFile = "input.css",
+            OutputFile = "output.css",
+            TailwindCliPath = null,
+            AdditionalArguments = "--verbose"
+        };
+        var options = Options.Create(tailwindOptions);
+        var tailwindProcess = A.Fake<ITailwindProcessInterop>();
+        var hostEnvironment = A.Fake<IHostEnvironment>();
+        var logger = A.Fake<ILogger<TailwindHostedService>>();
+
+        A.CallTo(() => hostEnvironment.EnvironmentName).Returns(Environments.Development);
+
+        var tailwindHostedService = new TailwindHostedService(options, hostEnvironment, tailwindProcess, logger);
+        await tailwindHostedService.StartAsync(CancellationToken.None);
+
+        A.CallTo(() => tailwindProcess.StartProcess(
+            A<string>.Ignored,
+            A<string>.That.Contains("--verbose"))).MustHaveHappened();
+    }
 }
