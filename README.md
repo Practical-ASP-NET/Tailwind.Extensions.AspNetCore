@@ -64,7 +64,7 @@ Notes:
 Run `dotnet watch run`. In Development, the service will run `tailwind -i <input> -o <output> --watch` and log the exact command.
 
 ### Sample
-See [https://github.com/Practical-ASP-NET/Tailwind.Extensions.AspNetCore/tree/main/demos/net8](demos/net8) for a working setup (Program.cs calls `builder.UseTailwindCli();`, appsettings.Development.json contains the Tailwind section).
+See [demos/net8](https://github.com/Practical-ASP-NET/Tailwind.Extensions.AspNetCore/tree/main/demos/net8) for a working setup (Program.cs calls `builder.UseTailwindCli();`, appsettings.Development.json contains the Tailwind section).
 
 ---
 
