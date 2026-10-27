@@ -10,23 +10,17 @@ public interface ITailwindProcessInterop
 
 public class TailwindProcessInterop : ITailwindProcessInterop
 {
+    public const string DefaultCommand = "tailwind";
+
     public Process? StartProcess(string command, string arguments)
     {
-        string cmdName;
-        if (!command.EndsWith(".exe") && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            cmdName = $"{command}.exe";
-        }
-        else
-            cmdName = command;
-
         try
         {
-            var process = Start(arguments, cmdName);
+            var process = Start(arguments, CandidateCommands(command, RuntimeInformation.IsOSPlatform(OSPlatform.Windows)));
 
             if (process == null)
             {
-                Console.WriteLine($"Could not start process: {cmdName}");
+                Console.WriteLine($"Could not start process: {command}");
                 return null;
             }
 
@@ -58,49 +52,39 @@ public class TailwindProcessInterop : ITailwindProcessInterop
         }
     }
 
-    private static IEnumerable<string> FindExecutablesInPath(string pattern)
+    /// <summary>
+    /// The commands to try, in order. A configured path is used as given; only the default command
+    /// falls back to the other names the Tailwind CLI is published under, resolved by the OS from PATH.
+    /// Nothing else on PATH or in the current directory is considered.
+    /// </summary>
+    internal static IEnumerable<string> CandidateCommands(string command, bool isWindows)
     {
-        var executables = new List<string>();
-        var pathEnv = Environment.GetEnvironmentVariable("PATH");
-        if (string.IsNullOrEmpty(pathEnv)) return executables;
-        var pathDirs = pathEnv.Split(Path.PathSeparator);
-        foreach (var dir in pathDirs)
+        var names = new List<string> { command };
+        if (command == DefaultCommand)
         {
-            if (!Directory.Exists(dir)) continue;
-            try
-            {
-                var files = Directory.GetFiles(dir, pattern, SearchOption.TopDirectoryOnly);
-                foreach (var file in files)
-                {
-                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !file.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
-                        continue;
-                    executables.Add(file);
-                }
-            }
-            catch { /* ignore access issues */ }
+            names.Add("tailwindcss");
+            names.Add(StandaloneBinaryName());
         }
-        return executables;
+
+        foreach (var name in names)
+        {
+            if (isWindows && !Path.HasExtension(name))
+                yield return $"{name}.exe";
+            yield return name;
+        }
     }
 
-    private static IEnumerable<string> FindExecutablesInCurrentDirectory(string pattern)
+    // The name of the standalone CLI binary Tailwind publishes for this platform, e.g. tailwindcss-macos-arm64
+    private static string StandaloneBinaryName()
     {
-        var executables = new List<string>();
-        var dir = Directory.GetCurrentDirectory();
-        try
-        {
-            var files = Directory.GetFiles(dir, pattern, SearchOption.TopDirectoryOnly);
-            foreach (var file in files)
-            {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !file.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
-                    continue;
-                executables.Add(file);
-            }
-        }
-        catch { /* ignore access issues */ }
-        return executables;
+        var os = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "windows"
+            : RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "macos"
+            : "linux";
+        var arch = RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64" : "x64";
+        return $"tailwindcss-{os}-{arch}";
     }
 
-    private static Process? Start(string arguments, string cmdName)
+    private static Process? Start(string arguments, IEnumerable<string> commandsToTry)
     {
         var startInfo = new ProcessStartInfo
         {
@@ -113,18 +97,6 @@ public class TailwindProcessInterop : ITailwindProcessInterop
             WorkingDirectory = null
         };
        
-        var commandsToTry = new List<string> { cmdName };
-
-        commandsToTry.AddRange(FindExecutablesInPath("*tailwind*"));
-        commandsToTry.AddRange(FindExecutablesInCurrentDirectory(cmdName));
-      
-        if (cmdName.EndsWith(".exe"))
-        {
-            var baseCommand = cmdName.Substring(0, cmdName.Length - 4);
-            commandsToTry.Add(baseCommand);
-            commandsToTry.AddRange(FindExecutablesInCurrentDirectory(baseCommand));
-        }
-      
         foreach (var command in commandsToTry.Distinct())
         {
             try
