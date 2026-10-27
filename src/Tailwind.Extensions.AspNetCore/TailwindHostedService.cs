@@ -56,7 +56,7 @@ public class TailwindHostedService : IHostedService, IDisposable
 
         _logger.LogInformation($"tailwind {args}");
 
-        var processName = string.IsNullOrEmpty(_options.TailwindCliPath) ? "tailwind" : _options.TailwindCliPath;
+        var processName = string.IsNullOrEmpty(_options.TailwindCliPath) ? TailwindProcessInterop.DefaultCommand : _options.TailwindCliPath;
         _process = _tailwindProcess.StartProcess(processName, args);
 
         return Task.CompletedTask;

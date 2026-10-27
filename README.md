@@ -52,7 +52,8 @@ var app = builder.Build();
 ```
 
 Notes:
-- If `TailwindCliPath` is empty, the service runs a command named `tailwind` from PATH.
+- If `TailwindCliPath` is empty, the service runs `tailwind` from PATH, falling back to `tailwindcss` and then the standalone binary's published name for your platform (e.g. `tailwindcss-macos-arm64`, `tailwindcss-windows-x64.exe`).
+- If `TailwindCliPath` is set, only that command is run. No other executables on PATH or in the current directory are tried.
 - Secondary option (if you use npm-installed CLI): on Windows you can point to the npm shim, e.g. `.\\node_modules\\.bin\\tailwind.cmd`.
 - The hosted service is a no-op outside Development and stops the CLI when the app stops.
 
