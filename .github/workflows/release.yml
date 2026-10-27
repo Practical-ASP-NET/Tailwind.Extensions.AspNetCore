@@ -1,32 +1,44 @@
-  on:
-    push:
-      tags:
-        - '*.*.*'
-  jobs:
-    build:
-      runs-on: windows-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
-        - name: Setup .NET 8 and 10
-          uses: actions/setup-dotnet@v4
-          with:
-            dotnet-version: |
-              8.0.x
-              10.0.x
-        - name: Build
-          run: ./Build.ps1
-          shell: pwsh
-        - name: Push to NuGet
-          env:
-            NUGET_URL: https://api.nuget.org/v3/index.json
-            NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-          run: ./Push.ps1
-          shell: pwsh
-        - name: Artifacts
-          uses: actions/upload-artifact@v4.6.2
-          with:
-            name: artifacts
-            path: artifacts/**/*
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      id-token: write # lets NuGet/login exchange a GitHub OIDC token for a short-lived nuget.org API key
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup .NET 8 and 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+      - name: Build
+        run: ./Build.ps1
+        shell: pwsh
+      - name: Artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: artifacts
+          path: artifacts/**/*
+      # Trusted Publishing: needs a policy on nuget.org for this repo and workflow file (release.yml)
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+      - name: Push to NuGet
+        env:
+          NUGET_URL: https://api.nuget.org/v3/index.json
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: ./Push.ps1
+        shell: pwsh
